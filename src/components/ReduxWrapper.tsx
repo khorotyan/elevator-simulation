@@ -1,6 +1,6 @@
 import { Provider } from "react-redux";
 import React from "react";
-import { configureStore } from "../helpers/store";
+import { configureStore } from "../utils/store";
 import { getApplicationModule } from "../modules/application/module";
 
 interface Props {

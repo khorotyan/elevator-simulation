@@ -10,6 +10,9 @@ export const applicationInitializeProducer = produce(
       payload: { elevatorsCount, floorsCount },
     }: ReturnType<typeof applicationInitializeAction>
   ) => {
+    draftState.elevators = {};
+    draftState.passengers = {};
+
     draftState.floorsCount = floorsCount;
 
     for (let i = 1; i <= elevatorsCount; i++) {

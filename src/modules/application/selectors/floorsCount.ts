@@ -1,5 +1,5 @@
-import { IState } from "../../../helpers/store/state";
+import { IState } from "../../../utils/store/state";
 
 export function applicationFloorsCountSelector(state: IState): number {
-  return state.application?.floorsCount || 1;
+  return state.application?.floorsCount ?? 2;
 }

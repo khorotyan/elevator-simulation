@@ -8,18 +8,13 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import classNames from "classnames";
 import useStyles from "../style";
-import { Passenger } from "../../../modules/application/reducers/state";
+import { usePassengers } from "../../../hooks/application/usePassengers";
 
-const tableColumnNames = ["ID", "Current Floor", "Target Floor", "In Elevator"];
-
-const passengers: Passenger[] = [
-  { id: 1, currentFloor: 0, targetFloor: 4, inElevator: false },
-  { id: 2, currentFloor: 6, targetFloor: 0, inElevator: false },
-  { id: 3, currentFloor: 8, targetFloor: 0, inElevator: false },
-];
+const tableColumnNames = ["ID", "Initial Floor", "Target Floor", "In Elevator"];
 
 const PassengerTable: React.FC = () => {
   const classes = useStyles();
+  const passengers = usePassengers();
 
   return (
     <Paper className={classes.tableWrapper}>
@@ -39,14 +34,16 @@ const PassengerTable: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {passengers.map(({ id, currentFloor, targetFloor, inElevator }) => (
-              <TableRow key={id}>
-                <TableCell>{id}</TableCell>
-                <TableCell>{currentFloor}</TableCell>
-                <TableCell>{targetFloor}</TableCell>
-                <TableCell>{inElevator ? "Yes" : "No"}</TableCell>
-              </TableRow>
-            ))}
+            {Object.values(passengers).map(
+              ({ id, initialFloor, targetFloor, inElevator }) => (
+                <TableRow key={id}>
+                  <TableCell>{id}</TableCell>
+                  <TableCell>{initialFloor}</TableCell>
+                  <TableCell>{targetFloor}</TableCell>
+                  <TableCell>{inElevator ? "Yes" : "No"}</TableCell>
+                </TableRow>
+              )
+            )}
           </TableBody>
         </Table>
       </TableContainer>

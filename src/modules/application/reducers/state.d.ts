@@ -7,8 +7,8 @@ export interface IApplicationState {
 }
 
 export interface Passenger {
-  id: number;
-  currentFloor: number;
+  id: string;
+  initialFloor: number;
   targetFloor: number;
   inElevator: boolean;
 }

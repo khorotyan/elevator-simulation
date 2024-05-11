@@ -1,13 +1,18 @@
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
-  initializerForm: {
+  formContainer: {
     display: "flex",
     alignItems: "center",
+
+    "&.with-margin": {
+      marginTop: 48,
+    },
   },
+
   input: {
     marginRight: 8,
-    width: 180,
+    minWidth: 140,
   },
 });
 

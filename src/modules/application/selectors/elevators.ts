@@ -1,4 +1,4 @@
-import { IState } from "../../../helpers/store/state";
+import { IState } from "../../../utils/store/state";
 import { Elevator } from "../reducers/state";
 
 export function applicationElevatorsSelector(
