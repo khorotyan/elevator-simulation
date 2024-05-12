@@ -1,4 +1,4 @@
-import Direction from "./enums";
+import Direction, { Status } from "./enums";
 
 export interface IApplicationState {
   passengers: Record<string, Passenger>;
@@ -18,5 +18,6 @@ export interface Elevator {
   id: number;
   currentFloor: number;
   direction: Direction;
+  status: Status;
   targetFloors: number[];
 }

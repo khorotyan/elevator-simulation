@@ -6,6 +6,7 @@ import { applicationPassengerWithInitialFloorSelector } from "../../selectors/pa
 import { applicationUpdatePassengerAction } from "../../actions/updatePassenger";
 import { applicationPassengerWithTargetFloorSelector } from "../../selectors/passengers/passengerWithTargetFloor";
 import { applicationRemovePassengerAction } from "../../actions/removePassenger";
+import { Direction, Status } from "../../reducers/enums";
 
 export function* applicationProcessTimeUnitWorker(): SagaIterator {
   const elevators: ReturnType<typeof applicationElevatorsSelector> =
@@ -24,6 +25,9 @@ export function* applicationProcessTimeUnitWorker(): SagaIterator {
       } else if (elevator.currentFloor > elevatorTargetFloor) {
         elevatorClone.currentFloor--; // move to the target floor
       } else {
+        elevatorClone.direction = Direction.IDLE;
+        elevatorClone.status = Status.IDLE;
+
         // if reached target floor, remove it from the target floors
         elevatorClone.targetFloors.shift();
 
@@ -38,6 +42,8 @@ export function* applicationProcessTimeUnitWorker(): SagaIterator {
           }
         );
         if (passenger) {
+          elevatorClone.status = Status.ENTERING;
+
           yield put(
             applicationUpdatePassengerAction({
               id: passenger.id,
@@ -65,6 +71,14 @@ export function* applicationProcessTimeUnitWorker(): SagaIterator {
 
           yield put(applicationRemovePassengerAction({ id: passenger.id }));
         }
+      }
+
+      if (elevatorClone.currentFloor < elevatorTargetFloor) {
+        elevatorClone.direction = Direction.UP;
+        elevatorClone.status = Status.UP;
+      } else if (elevatorClone.currentFloor > elevatorTargetFloor) {
+        elevatorClone.direction = Direction.DOWN;
+        elevatorClone.status = Status.DOWN;
       }
 
       yield put(applicationUpdateElevatorAction(elevatorClone));

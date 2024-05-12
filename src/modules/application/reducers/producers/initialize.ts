@@ -1,7 +1,7 @@
 import { IApplicationState } from "../state";
 import { applicationInitializeAction } from "../../actions/initialize";
 import { produce } from "immer";
-import { Direction } from "../enums";
+import { Direction, Status } from "../enums";
 
 export const applicationInitializeProducer = produce(
   (
@@ -20,6 +20,7 @@ export const applicationInitializeProducer = produce(
         id: i,
         currentFloor: 0,
         direction: Direction.IDLE,
+        status: Status.IDLE,
         targetFloors: [],
       };
     }

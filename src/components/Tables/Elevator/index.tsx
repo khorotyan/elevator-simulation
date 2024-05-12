@@ -85,9 +85,9 @@ const ElevatorTable: React.FC = () => {
                       {floor}
                     </TableCell>
                     {Object.values(elevators).map(
-                      ({ id, currentFloor, direction }) => (
+                      ({ id, currentFloor, status }) => (
                         <TableCell key={id}>
-                          {currentFloor === floor ? direction : ""}
+                          {currentFloor === floor ? status : ""}
                         </TableCell>
                       )
                     )}
