@@ -11,6 +11,7 @@ const App: React.FC = () => {
 
   return (
     <div className={classes.AppContainer}>
+      <h1>Elevator Simulator</h1>
       <InitializerForm />
       <TimeControls />
       <ElevatorTable />

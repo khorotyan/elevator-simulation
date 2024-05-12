@@ -6,14 +6,14 @@ interface Options {
   initialFloor: number;
 }
 
-export function applicationPassengerWithInitialFloorSelector(
+export function applicationPassengersWithInitialFloorSelector(
   state: IState,
   { initialFloor }: Options
-): Passenger | undefined {
+): Passenger[] {
   const passengers = applicationPassengersSelector(state);
 
   // get passenger with initial floor equal to the provided initialFloor
-  return Object.values(passengers).find(
+  return Object.values(passengers).filter(
     (passenger) => passenger.initialFloor === initialFloor
   );
 }

@@ -1,8 +1,8 @@
-import Button from "@mui/material/Button";
 import useStyles from "../style";
 import InputField from "../../shared/InputField";
 import { useInitialize } from "../../../hooks/application/useInitialize";
 import { useState } from "react";
+import Button from "../../shared/Button";
 
 const minFloorsCount = 2;
 const minElevatorsCount = 1;
@@ -55,7 +55,7 @@ const InitializerForm: React.FC = () => {
         max={50}
       />
       <Button type="submit" variant="contained">
-        Initialize
+        Initialize / Reset
       </Button>
     </form>
   );

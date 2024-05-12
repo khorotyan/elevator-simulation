@@ -6,14 +6,14 @@ interface Options {
   targetFloor: number;
 }
 
-export function applicationPassengerWithTargetFloorSelector(
+export function applicationPassengersWithTargetFloorSelector(
   state: IState,
   { targetFloor }: Options
-): Passenger | undefined {
+): Passenger[] {
   const passengers = applicationPassengersSelector(state);
 
   // get passenger with target floor equal to the provided targetFloor
-  return Object.values(passengers).find(
+  return Object.values(passengers).filter(
     (passenger) => passenger.targetFloor === targetFloor
   );
 }

@@ -1,4 +1,3 @@
-import Button from "@mui/material/Button";
 import useStyles from "../style";
 import InputField from "../../shared/InputField";
 import { useState } from "react";
@@ -6,6 +5,7 @@ import { useFloorsCount } from "../../../hooks/application/useFloorsCount";
 import { useAddPassenger } from "../../../hooks/application/useAddPassenger";
 import classNames from "classnames";
 import { enqueueSnackbar } from "notistack";
+import Button from "../../shared/Button";
 
 const defaultInitialFloor = 0;
 const defaultTargetFloor = 1;

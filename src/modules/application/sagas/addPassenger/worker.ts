@@ -43,11 +43,13 @@ export function* applicationAddPassengerWorker(
     })
   );
 
-  // add the passenger target floor to the elevator target floors
+  // add the passenger target floor to the elevator target floors if it doesn't exist
   const existingTargetFloors = elevators[bestElevatorId].targetFloors;
-  const targetFloors = [...existingTargetFloors, initialFloor];
+  if (!existingTargetFloors.includes(initialFloor)) {
+    const targetFloors = [...existingTargetFloors, initialFloor];
 
-  // update the elevator target floors
-  const elevator = { ...elevators[bestElevatorId], targetFloors };
-  yield put(applicationUpdateElevatorAction(elevator));
+    // update the elevator target floors
+    const elevator = { ...elevators[bestElevatorId], targetFloors };
+    yield put(applicationUpdateElevatorAction(elevator));
+  }
 }
