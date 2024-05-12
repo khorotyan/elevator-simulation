@@ -1,5 +1,5 @@
-import { IState } from "../../../utils/store/state";
-import { Passenger } from "../reducers/state";
+import { IState } from "../../../../utils/store/state";
+import { Passenger } from "../../reducers/state";
 
 export function applicationPassengersSelector(
   state: IState

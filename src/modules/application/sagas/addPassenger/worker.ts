@@ -3,8 +3,8 @@ import { put, select } from "redux-saga/effects";
 import { applicationAddPassengerAction } from "../../actions/addPassenger";
 import { applicationElevatorsSelector } from "../../selectors/elevators";
 import { calculateElevatorPenalty } from "./elevatorPenaltyCalculations";
-import { applicationSetPassengerTargetElevatorIdAction } from "../../actions/setPassengerTargetElevatorId";
-import { applicationUpdateElevatorTargetFloorsAction } from "../../actions/updateElevatorTargetFloors";
+import { applicationUpdatePassengerAction } from "../../actions/updatePassenger";
+import { applicationUpdateElevatorAction } from "../../actions/updateElevator";
 
 // when a passenger is added, we need to find the best elevator to assign to the passenger
 // preferably this calculation, including storing all the elevator and customer information would have been done in backend
@@ -37,23 +37,17 @@ export function* applicationAddPassengerWorker(
 
   // set the passenger target elevator value
   yield put(
-    applicationSetPassengerTargetElevatorIdAction({
-      passengerId: id,
+    applicationUpdatePassengerAction({
+      id,
       targetElevatorId: bestElevatorId,
     })
   );
-
-  console.log({ bestElevatorId, elevator: elevators[bestElevatorId] });
 
   // add the passenger target floor to the elevator target floors
   const existingTargetFloors = elevators[bestElevatorId].targetFloors;
   const targetFloors = [...existingTargetFloors, initialFloor];
 
   // update the elevator target floors
-  yield put(
-    applicationUpdateElevatorTargetFloorsAction({
-      elevatorId: bestElevatorId,
-      targetFloors,
-    })
-  );
+  const elevator = { ...elevators[bestElevatorId], targetFloors };
+  yield put(applicationUpdateElevatorAction(elevator));
 }

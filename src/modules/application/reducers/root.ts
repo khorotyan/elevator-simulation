@@ -4,10 +4,12 @@ import { applicationInitializeAction } from "../actions/initialize";
 import { applicationInitializeProducer } from "./producers/initialize";
 import { applicationAddPassengerAction } from "../actions/addPassenger";
 import { applicationAddPassengerProducer } from "./producers/addPassenger";
-import { applicationSetPassengerTargetElevatorIdProducer } from "./producers/setPassengerTargetElevatorId";
-import { applicationSetPassengerTargetElevatorIdAction } from "../actions/setPassengerTargetElevatorId";
-import { applicationUpdateElevatorTargetFloorsAction } from "../actions/updateElevatorTargetFloors";
-import { applicationUpdateElevatorTargetFloorsProducer } from "./producers/updateElevatorTargetFloors";
+import { applicationUpdatePassengerProducer } from "./producers/updatePassenger";
+import { applicationUpdatePassengerAction } from "../actions/updatePassenger";
+import { applicationUpdateElevatorAction } from "../actions/updateElevator";
+import { applicationUpdateElevatorProducer } from "./producers/updateElevator";
+import { applicationRemovePassengerAction } from "../actions/removePassenger";
+import { applicationRemovePassengerProducer } from "./producers/removePassenger";
 
 export const initialApplicationState: IApplicationState = {
   passengers: {},
@@ -19,10 +21,14 @@ export const applicationRootReducer = createReducer(initialApplicationState)
   .handleAction(applicationInitializeAction, applicationInitializeProducer)
   .handleAction(applicationAddPassengerAction, applicationAddPassengerProducer)
   .handleAction(
-    applicationSetPassengerTargetElevatorIdAction,
-    applicationSetPassengerTargetElevatorIdProducer
+    applicationUpdatePassengerAction,
+    applicationUpdatePassengerProducer
   )
   .handleAction(
-    applicationUpdateElevatorTargetFloorsAction,
-    applicationUpdateElevatorTargetFloorsProducer
+    applicationUpdateElevatorAction,
+    applicationUpdateElevatorProducer
+  )
+  .handleAction(
+    applicationRemovePassengerAction,
+    applicationRemovePassengerProducer
   );

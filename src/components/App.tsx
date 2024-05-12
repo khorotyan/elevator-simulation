@@ -4,6 +4,7 @@ import ElevatorTable from "./Tables/Elevator";
 import PassengerTable from "./Tables/Passenger";
 import InitializerForm from "./forms/Initializer";
 import PassengerForm from "./forms/Passenger";
+import TimeControls from "./TimeControls";
 
 const App: React.FC = () => {
   const classes = useStyles();
@@ -11,6 +12,7 @@ const App: React.FC = () => {
   return (
     <div className={classes.AppContainer}>
       <InitializerForm />
+      <TimeControls />
       <ElevatorTable />
       <PassengerForm />
       <PassengerTable />
