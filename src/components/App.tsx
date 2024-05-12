@@ -5,6 +5,7 @@ import PassengerTable from "./Tables/Passenger";
 import InitializerForm from "./forms/Initializer";
 import PassengerForm from "./forms/Passenger";
 import TimeControls from "./TimeControls";
+import AutomationControls from "./AutomationControls";
 
 const App: React.FC = () => {
   const classes = useStyles();
@@ -14,6 +15,7 @@ const App: React.FC = () => {
       <h1>Elevator Simulator</h1>
       <InitializerForm />
       <TimeControls />
+      <AutomationControls />
       <ElevatorTable />
       <PassengerForm />
       <PassengerTable />

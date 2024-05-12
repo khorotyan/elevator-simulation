@@ -4,6 +4,12 @@ export interface IApplicationState {
   passengers: Record<string, Passenger>;
   elevators: Record<number, Elevator>;
   floorsCount: number;
+  automationControls: {
+    isPassengerCreationAutomated: boolean;
+    isAppStateAutomated: boolean;
+    passengerCreationFrequency: number;
+    stateChangeFrequency: number;
+  };
 }
 
 export interface Passenger {

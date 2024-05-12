@@ -31,9 +31,9 @@ export function* applicationProcessTimeUnitWorker(): SagaIterator {
         // if reached target floor, remove it from the target floors
         elevatorClone.targetFloors.shift();
 
-        // get passenger that is moving from elevatorTargetFloor (starts from)
-        // update passenger state to be "inElevator: true"
-        // update elevator targetFloors to include passenger targetFloor
+        // get passengers that are moving from elevatorTargetFloor (starts from)
+        // update passengers state to be "inElevator: true"
+        // update elevator targetFloors to include targetFloor
         // NOTE: we do not move the elevator in this case as its opening/closing doors
         let passengers = yield select(
           applicationPassengersWithInitialFloorSelector,
@@ -58,8 +58,8 @@ export function* applicationProcessTimeUnitWorker(): SagaIterator {
           }
         }
 
-        // get passenger that needs to go to elevatorTargetFloor (ends at)
-        // remove passenger
+        // get passengers that needs to go to elevatorTargetFloor (ends at)
+        // remove those passengers as they exited the elevator
         passengers = yield select(
           applicationPassengersWithTargetFloorSelector,
           {
