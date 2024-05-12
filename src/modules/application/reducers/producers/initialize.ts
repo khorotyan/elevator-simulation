@@ -16,7 +16,7 @@ export const applicationInitializeProducer = produce(
     draftState.floorsCount = floorsCount;
 
     for (let i = 1; i <= elevatorsCount; i++) {
-      draftState.elevators[`elevator${i}`] = {
+      draftState.elevators[i] = {
         id: i,
         currentFloor: 0,
         direction: Direction.IDLE,

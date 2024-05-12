@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useFloorsCount } from "../../../hooks/application/useFloorsCount";
 import { useAddPassenger } from "../../../hooks/application/useAddPassenger";
 import classNames from "classnames";
+import { enqueueSnackbar } from "notistack";
 
 const defaultInitialFloor = 0;
 const defaultTargetFloor = 1;
@@ -15,21 +16,30 @@ const PassengerForm: React.FC = () => {
   const addPassenger = useAddPassenger();
   const [initialFloor, setInitialFloor] = useState(defaultInitialFloor);
   const [targetFloor, setTargetFloor] = useState(defaultTargetFloor);
+  const isDisabled = maxFloors < 1;
 
   const handleInitialFloorChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setInitialFloor(parseInt(event.target.value) || defaultInitialFloor);
+    setInitialFloor(parseInt(event.target.value) || 0);
   };
 
   const handleTargetFloorChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setTargetFloor(parseInt(event.target.value) || defaultTargetFloor);
+    setTargetFloor(parseInt(event.target.value) || 0);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+
+    if (initialFloor === targetFloor) {
+      enqueueSnackbar("Initial and target floors should be different", {
+        variant: "error",
+      });
+      return;
+    }
+
     addPassenger({ initialFloor, targetFloor });
   };
 
@@ -50,6 +60,7 @@ const PassengerForm: React.FC = () => {
         onChange={handleInitialFloorChange}
         min={0}
         max={maxFloors}
+        disabled={isDisabled}
       />
       <InputField
         className={classes.input}
@@ -61,8 +72,9 @@ const PassengerForm: React.FC = () => {
         onChange={handleTargetFloorChange}
         min={0}
         max={maxFloors}
+        disabled={isDisabled}
       />
-      <Button type="submit" variant="contained">
+      <Button type="submit" variant="contained" disabled={isDisabled}>
         Add Passenger
       </Button>
     </form>

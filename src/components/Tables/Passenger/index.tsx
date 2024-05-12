@@ -10,7 +10,13 @@ import classNames from "classnames";
 import useStyles from "../style";
 import { usePassengers } from "../../../hooks/application/usePassengers";
 
-const tableColumnNames = ["ID", "Initial Floor", "Target Floor", "In Elevator"];
+const tableColumnNames = [
+  "ID",
+  "Initial Floor",
+  "Target Floor",
+  "Target Elevator ID",
+  "In Elevator",
+];
 
 const PassengerTable: React.FC = () => {
   const classes = useStyles();
@@ -35,11 +41,18 @@ const PassengerTable: React.FC = () => {
           </TableHead>
           <TableBody>
             {Object.values(passengers).map(
-              ({ id, initialFloor, targetFloor, inElevator }) => (
+              ({
+                id,
+                initialFloor,
+                targetFloor,
+                targetElevatorId,
+                inElevator,
+              }) => (
                 <TableRow key={id}>
                   <TableCell>{id}</TableCell>
                   <TableCell>{initialFloor}</TableCell>
                   <TableCell>{targetFloor}</TableCell>
+                  <TableCell>{targetElevatorId}</TableCell>
                   <TableCell>{inElevator ? "Yes" : "No"}</TableCell>
                 </TableRow>
               )

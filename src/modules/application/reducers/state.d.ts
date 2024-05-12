@@ -2,7 +2,7 @@ import Direction from "./enums";
 
 export interface IApplicationState {
   passengers: Record<string, Passenger>;
-  elevators: Record<string, Elevator>;
+  elevators: Record<number, Elevator>;
   floorsCount: number;
 }
 
@@ -11,6 +11,7 @@ export interface Passenger {
   initialFloor: number;
   targetFloor: number;
   inElevator: boolean;
+  targetElevatorId?: number;
 }
 
 export interface Elevator {
