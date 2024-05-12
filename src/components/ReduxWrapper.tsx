@@ -8,6 +8,7 @@ interface Props {
 }
 
 const ReduxWrapper = ({ children }: Props) => {
+  // use modular approach in case we want to add more modules in the future
   const { store } = configureStore({
     sagaContext: {},
     modules: [getApplicationModule()],
