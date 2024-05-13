@@ -40,6 +40,10 @@ const useStyles = createUseStyles({
   boldText: {
     fontWeight: 600,
   },
+
+  elevatorCell: {
+    minWidth: 70,
+  },
 });
 
 export default useStyles;

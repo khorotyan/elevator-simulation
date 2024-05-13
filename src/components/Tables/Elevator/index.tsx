@@ -11,6 +11,7 @@ import classNames from "classnames";
 import useStyles from "../style";
 import { useFloorsCount } from "../../../hooks/application/useFloorsCount";
 import { useElevators } from "../../../hooks/application/useElevators";
+import { Status } from "../../../modules/application/reducers/enums";
 
 const minRowsPerPage = 50;
 
@@ -42,6 +43,23 @@ const ElevatorTable: React.FC = () => {
     setPage(Math.max(0, Math.ceil(floorsCount / newRowsPerPage) - 1));
   };
 
+  const getStatus = (
+    currentFloor: number,
+    floor: number,
+    status: Status,
+    targetFloors: number[]
+  ) => {
+    if (currentFloor === floor) {
+      return status;
+    }
+
+    if (targetFloors.includes(floor)) {
+      return "♙";
+    }
+
+    return "";
+  };
+
   return (
     <Paper className={classes.tableWrapper}>
       <h2 className={classes.tableTitle}>Elevators</h2>
@@ -61,8 +79,11 @@ const ElevatorTable: React.FC = () => {
               {Object.keys(elevators).map((key) => (
                 <TableCell
                   key={key}
-                  className={classNames(classes.stickyHeader, classes.boldText)}
-                  style={{ minWidth: 70 }}
+                  className={classNames(
+                    classes.stickyHeader,
+                    classes.boldText,
+                    classes.elevatorCell
+                  )}
                 >
                   E{key}
                 </TableCell>
@@ -86,9 +107,9 @@ const ElevatorTable: React.FC = () => {
                       {floor}
                     </TableCell>
                     {Object.values(elevators).map(
-                      ({ id, currentFloor, status }) => (
+                      ({ id, currentFloor, status, targetFloors }) => (
                         <TableCell key={id}>
-                          {currentFloor === floor ? status : ""}
+                          {getStatus(currentFloor, floor, status, targetFloors)}
                         </TableCell>
                       )
                     )}
