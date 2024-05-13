@@ -7,6 +7,7 @@ import { applicationUpdatePassengerAction } from "../../actions/updatePassenger"
 import { applicationPassengersWithTargetFloorSelector } from "../../selectors/passengers/passengerWithTargetFloor";
 import { applicationRemovePassengerAction } from "../../actions/removePassenger";
 import { Direction, Status } from "../../reducers/enums";
+import { sortTargetFloors } from "../../../../utils/sortTargetFloors";
 
 export function* applicationProcessTimeUnitWorker(): SagaIterator {
   const elevators: ReturnType<typeof applicationElevatorsSelector> =
@@ -51,8 +52,16 @@ export function* applicationProcessTimeUnitWorker(): SagaIterator {
               })
             );
 
+            // add passenger target floor to elevator target floors and sort target floors
             if (!elevator.targetFloors.includes(passenger.targetFloor)) {
-              elevatorClone.targetFloors.push(passenger.targetFloor);
+              const newTargetFloors = sortTargetFloors({
+                targetFloors: elevatorClone.targetFloors,
+                newFloor: passenger.targetFloor,
+                currentFloor: elevatorClone.currentFloor,
+                direction: elevatorClone.direction,
+              });
+
+              elevatorClone.targetFloors = newTargetFloors;
             }
           }
         }

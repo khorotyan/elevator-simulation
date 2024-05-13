@@ -7,6 +7,7 @@ import { applicationUpdatePassengerAction } from "../../actions/updatePassenger"
 import { applicationUpdateElevatorAction } from "../../actions/updateElevator";
 import { Direction } from "../../reducers/enums";
 import { applicationPassengersElevatorIdWithSameMovementSelector } from "../../selectors/passengers/passengerElevatorId";
+import { sortTargetFloors } from "../../../../utils/sortTargetFloors";
 
 // when a passenger is added, we need to find the best elevator to assign to the passenger
 // preferably this calculation, including storing all the elevator and customer information would have been done in backend
@@ -54,16 +55,22 @@ export function* applicationAddPassengerWorker(
   );
 
   // add the passenger target floor to the elevator target floors if it doesn't exist
-  const existingTargetFloors = elevators[bestElevatorId].targetFloors;
-  if (!existingTargetFloors.includes(initialFloor)) {
-    const targetFloors = [initialFloor, ...existingTargetFloors];
+  // and update target floors based on current floor, elevator direction and existing floors
+  const { targetFloors, currentFloor, direction } = elevators[bestElevatorId];
+  if (!targetFloors.includes(initialFloor)) {
+    const newTargetFloors = sortTargetFloors({
+      targetFloors,
+      newFloor: initialFloor,
+      currentFloor,
+      direction,
+    });
 
-    // update the elevator target floors
-    const elevator = { ...elevators[bestElevatorId], targetFloors };
+    const elevator = {
+      ...elevators[bestElevatorId],
+      targetFloors: newTargetFloors,
+    };
     elevator.direction =
-      elevator.targetFloors[0] > elevator.currentFloor
-        ? Direction.UP
-        : Direction.DOWN;
+      newTargetFloors[0] > currentFloor ? Direction.UP : Direction.DOWN;
     yield put(applicationUpdateElevatorAction(elevator));
   }
 }
