@@ -53,8 +53,9 @@ const ElevatorTable: React.FC = () => {
       return status;
     }
 
+    // show elevator target floors by their order
     if (targetFloors.includes(floor)) {
-      return "♙";
+      return targetFloors.indexOf(floor) + 1;
     }
 
     return "";

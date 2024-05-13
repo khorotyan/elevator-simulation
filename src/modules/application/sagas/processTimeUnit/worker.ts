@@ -26,7 +26,6 @@ export function* applicationProcessTimeUnitWorker(): SagaIterator {
         elevatorClone.currentFloor--; // move to the target floor
       } else {
         elevatorClone.direction = Direction.IDLE;
-        elevatorClone.status = Status.IDLE;
 
         // if reached target floor, remove it from the target floors
         elevatorClone.targetFloors.shift();
@@ -87,6 +86,10 @@ export function* applicationProcessTimeUnitWorker(): SagaIterator {
       } else if (elevatorClone.currentFloor > elevatorTargetFloor) {
         elevatorClone.direction = Direction.DOWN;
         elevatorClone.status = Status.DOWN;
+      }
+
+      if (elevatorClone.targetFloors.length === 0) {
+        elevatorClone.status = Status.IDLE;
       }
 
       yield put(applicationUpdateElevatorAction(elevatorClone));

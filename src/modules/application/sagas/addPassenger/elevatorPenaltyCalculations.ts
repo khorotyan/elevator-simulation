@@ -38,7 +38,7 @@ function getDirectionPenalty(elevator: Elevator, passenger: Passenger): number {
       : Direction.DOWN;
 
   if (elevator.direction === Direction.IDLE) {
-    return 1; // minimal penalty for idle as we prefer an already moving elevator towards the passenger
+    return 0.5; // minimal penalty for idle as we prefer an already moving elevator towards the passenger
   } else if (elevator.direction === passengerDirection) {
     if (
       (passengerDirection === Direction.UP &&
@@ -102,8 +102,8 @@ function getRouteEfficiencyPenalty(
   const stopsToTargetPenalty =
     targetStopIndex === -1 ? stopsToTarget.length : targetStopIndex;
 
-  // it takes 3 seconds to open/close the doors
-  const penaltyMultiplier = 3;
+  // do not penalize too much as we want to prioritize the elevator moving towards the passenger
+  const penaltyMultiplier = 0.5;
 
   return penaltyMultiplier * (stopsToPickupPenalty + stopsToTargetPenalty);
 }
