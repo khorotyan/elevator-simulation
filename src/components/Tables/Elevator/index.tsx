@@ -62,6 +62,7 @@ const ElevatorTable: React.FC = () => {
                 <TableCell
                   key={key}
                   className={classNames(classes.stickyHeader, classes.boldText)}
+                  style={{ minWidth: 70 }}
                 >
                   E{key}
                 </TableCell>

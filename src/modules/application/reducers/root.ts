@@ -26,8 +26,8 @@ export const initialApplicationState: IApplicationState = {
   automationControls: {
     isPassengerCreationAutomated: false,
     isAppStateAutomated: false,
-    passengerCreationFrequency: 0,
-    stateChangeFrequency: 0,
+    passengerCreationFrequency: 2,
+    stateChangeFrequency: 1,
   },
 };
 

@@ -5,8 +5,8 @@ export enum Direction {
 }
 
 export enum Status {
-  UP = "Going Up",
-  DOWN = "Going Down",
+  UP = "Up ↑",
+  DOWN = "Down ↓",
   IDLE = "Idle",
   ENTERING = "Entering",
 }

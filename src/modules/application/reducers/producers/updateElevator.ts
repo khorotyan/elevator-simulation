@@ -1,4 +1,4 @@
-import { applicationUpdateElevatorAction as applicationUpdateElevatorAction } from "../../actions/updateElevator";
+import { applicationUpdateElevatorAction } from "../../actions/updateElevator";
 import { IApplicationState } from "../state";
 import { produce } from "immer";
 

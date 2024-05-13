@@ -68,7 +68,9 @@ const AutomationControls: React.FC = () => {
       <div className={classes.row}>
         <Checkbox
           checked={isAppStateAutomated}
-          label={`Update Application State Every ${stateChangeFrequency} Seconds`}
+          label={`Update Application State Every ${stateChangeFrequency} Second${
+            stateChangeFrequency !== 1 ? "s" : ""
+          }`}
           onChange={(event) =>
             changeAppStateAutomatedValue({
               isAutomated: event.target.checked,

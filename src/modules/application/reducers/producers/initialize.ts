@@ -2,6 +2,7 @@ import { IApplicationState } from "../state";
 import { applicationInitializeAction } from "../../actions/initialize";
 import { produce } from "immer";
 import { Direction, Status } from "../enums";
+import { initialApplicationState } from "../root";
 
 export const applicationInitializeProducer = produce(
   (
@@ -12,6 +13,7 @@ export const applicationInitializeProducer = produce(
   ) => {
     draftState.elevators = {};
     draftState.passengers = {};
+    draftState.automationControls = initialApplicationState.automationControls;
 
     draftState.floorsCount = floorsCount;
 
